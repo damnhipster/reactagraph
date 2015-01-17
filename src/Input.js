@@ -1,10 +1,9 @@
-/** @jsx React.DOM */
 var React = require('react/addons');
 
 var Input = React.createClass({
   render: function () {
     return (
-      React.createElement("span", null, "Hello world")
+      React.createElement("span", null, "Enter text here:")
     );
   }
 });

@@ -4,22 +4,22 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha --watch",
-    "start": "nohup ./node_modules/.bin/jsx --watch src/ public/ & node app",
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "test": "./node_modules/.bin/mocha --watch",
+    "start": "./node_modules/.bin/browserify src/* > public/app.js & node app"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.10.6",
     "node-sass-middleware": "^0.4.0",
-    "bower": "^1.3.12",
-    "react": "^0.12.2"
+    "react": "^0.12.2",
+    "ejs": "^2.1.4"
   },
   "devDependencies": {
     "mocha": "^1.21.4",
     "chai": "^1.9.1",
     "react-tools": "^0.12.2",
-    "jsdom": "^2.0.0"
+    "jsdom": "^2.0.0",
+    "browserify": "^8.1.1"
   }
 }
