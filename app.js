@@ -4,12 +4,12 @@ var app = module.exports = express();
 var port = process.env.PORT || 3245;
 
 app.engine('html', require('ejs').renderFile);
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/build'));
 
 // Configure app
 app.use(sassMiddleware({
   src: __dirname + '/sass',
-  dest: __dirname + '/public',
+  dest: __dirname + '/build',
   debug: true,
   outputStyle: 'compressed'
 }));
