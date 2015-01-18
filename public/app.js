@@ -20017,23 +20017,43 @@ module.exports = CommaCount;
 
 },{"react/addons":2}],164:[function(require,module,exports){
 var React = require('react/addons');
+
+var FullStopCount = React.createClass({
+  render: function() {
+    return (
+      React.createElement("p", null, "Full Stops: " + this.props.count)
+    );
+  }
+});
+
+module.exports = FullStopCount;
+
+
+},{"react/addons":2}],165:[function(require,module,exports){
+var React = require('react/addons');
 var CommaCount = require('./CommaCount');
+var FullStopCount = require('./FullStopCount');
 
 var Paragraph = React.createClass({
-  parseInput: function(input) {
-    return input.split(",").length - 1;
+  count: function(str, input) {
+    return input.split(str).length - 1;
   },
   render: function() {
-    var commaCount = this.parseInput(this.props.input);
+    debugger;
+    var commaCount = this.count(',', this.props.input);
+    var fullStopCount = this.count('.', this.props.input);
     return (
-      React.createElement(CommaCount, {count: commaCount})
+      React.createElement("div", null,
+        React.createElement(CommaCount, {count: commaCount}),
+        React.createElement(FullStopCount, {count: fullStopCount})
+      )
     );
   }
 });
 
 module.exports = Paragraph;
 
-},{"./CommaCount":163,"react/addons":2}],165:[function(require,module,exports){
+},{"./CommaCount":163,"./FullStopCount":164,"react/addons":2}],166:[function(require,module,exports){
 var React = require('react/addons');
 var Paragraph = require('./Paragraph.js');
 
@@ -20057,7 +20077,7 @@ var Reactagraph = React.createClass({
 
 module.exports = Reactagraph;
 
-},{"./Paragraph.js":164,"react/addons":2}],166:[function(require,module,exports){
+},{"./Paragraph.js":165,"react/addons":2}],167:[function(require,module,exports){
 var React = require('react/addons');
 var Reactagraph = require('./Reactagraph');
 
@@ -20067,4 +20087,4 @@ React.render(
 );
 
 
-},{"./Reactagraph":165,"react/addons":2}]},{},[163,164,165,166]);
+},{"./Reactagraph":166,"react/addons":2}]},{},[163,164,165,166,167]);
