@@ -20031,21 +20031,27 @@ module.exports = FullStopCount;
 },{"react/addons":2}],165:[function(require,module,exports){
 var React = require('react/addons');
 var Counter = require('./Counter');
+var TableOfWords = require('./TableOfWords');
 
 var Paragraph = React.createClass({
   count: function(str, input) {
     return input.split(str).length - 1;
   },
+  purgeSpecialCharacters: function(input) {
+    return input.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+  },
   render: function() {
     var input = this.props.input;
     var commaCounter = this.count(',', input);
     var fullStopCounter = this.count('.', input);
-    var wordsCounter = this.count(' ', input);
+    var wordsCounter = this.count(',', input);
+    var wordsList = this.purgeSpecialCharacters(input).split(' ');
     return (
       React.createElement("div", null,
+        React.createElement(TableOfWords, {words: wordsList}),
         React.createElement(Counter, {className: "commas", label: "Commas", count: commaCounter}),
         React.createElement(Counter, {className: "full-stops", label: "Full Stops", count: fullStopCounter}),
-        React.createElement(Counter, {className: "words", label: "Words", count: wordsCounter})
+        React.createElement(Counter, {className: "words", label: "Words", count: fullStopCounter})
       )
     );
   }
@@ -20053,7 +20059,7 @@ var Paragraph = React.createClass({
 
 module.exports = Paragraph;
 
-},{"./Counter":163,"react/addons":2}],166:[function(require,module,exports){
+},{"./Counter":163,"./TableOfWords":167,"react/addons":2}],166:[function(require,module,exports){
 var React = require('react/addons');
 var Paragraph = require('./Paragraph.js');
 
@@ -20079,6 +20085,26 @@ module.exports = Reactagraph;
 
 },{"./Paragraph.js":165,"react/addons":2}],167:[function(require,module,exports){
 var React = require('react/addons');
+
+var Counter = React.createClass({
+  render: function() {
+    var wordNodes = this.props.words.map(function(word) {
+      return (
+        React.createElement("li", null, word)
+      );
+    });
+    return (
+      React.createElement("ul", null,
+        wordNodes
+      )
+    );
+  }
+});
+
+module.exports = Counter;
+
+},{"react/addons":2}],168:[function(require,module,exports){
+var React = require('react/addons');
 var Reactagraph = require('./Reactagraph');
 
 React.render(
@@ -20087,4 +20113,4 @@ React.render(
 );
 
 
-},{"./Reactagraph":166,"react/addons":2}]},{},[163,164,165,166,167]);
+},{"./Reactagraph":166,"react/addons":2}]},{},[163,164,165,166,167,168]);

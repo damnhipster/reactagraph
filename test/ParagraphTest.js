@@ -12,7 +12,6 @@ describe('Paragraph', function() {
     var paragraph = TestUtils.renderIntoDocument(
       React.createElement(Paragraph, {input: "Hi, hello there, greetings"})
     );
-    debugger;
     var countNode = TestUtils.findRenderedDOMComponentWithClass(paragraph, "commas").getDOMNode();
     expect(countNode.textContent).to.include("Commas: 2");
   });
