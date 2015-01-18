@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --watch",
-    "start": "mkdir build || ./node_modules/.bin/browserify src/* > build/app.js & node app"
+    "start": "node app"
   },
   "author": "",
   "license": "ISC",
