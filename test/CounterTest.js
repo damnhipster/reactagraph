@@ -12,7 +12,7 @@ describe('Counter', function() {
       React.createElement(Counter, {label: "Label", count:3})
     );
     var countNode = TestUtils.findRenderedDOMComponentWithTag(count, 'p').getDOMNode();
-    expect(countNode.textContent).to.include("3");
+    expect(countNode.textContent).to.include("Label: 3");
   });
 
   it("should set class", function() {

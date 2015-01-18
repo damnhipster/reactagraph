@@ -17,6 +17,14 @@ describe('Paragraph', function() {
     expect(countNode.textContent).to.include("Commas: 2");
   });
 
+  it("should count number of words", function() {
+    var paragraph = TestUtils.renderIntoDocument(
+      React.createElement(Paragraph, {input: "Hi, hello there, greetings "})
+    );
+    var countNode = TestUtils.findRenderedDOMComponentWithClass(paragraph, "words").getDOMNode();
+    expect(countNode.textContent).to.include("Words: 0");
+  });
+
   it("should count full stops", function() {
     var myInput = ["His palms are sweaty.",
       "Knees weak, arms spaghetti.",
