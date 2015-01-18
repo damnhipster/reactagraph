@@ -20004,9 +20004,42 @@ module.exports = warning;
 },{"./emptyFunction":123,"_process":1}],163:[function(require,module,exports){
 var React = require('react/addons');
 
-var Input = React.createClass({
+var CommaCount = React.createClass({
+  render: function() {
+    return (
+      React.createElement("p", null, "Commas: " + this.props.count)
+    );
+  }
+});
+
+module.exports = CommaCount;
+
+
+},{"react/addons":2}],164:[function(require,module,exports){
+var React = require('react/addons');
+var CommaCount = require('./CommaCount');
+
+var Paragraph = React.createClass({
+  parseInput: function(input) {
+    return input.split(",").length - 1;
+  },
+  render: function() {
+    var commaCount = this.parseInput(this.props.input);
+    return (
+      React.createElement(CommaCount, {count: commaCount})
+    );
+  }
+});
+
+module.exports = Paragraph;
+
+},{"./CommaCount":163,"react/addons":2}],165:[function(require,module,exports){
+var React = require('react/addons');
+var Paragraph = require('./Paragraph.js');
+
+var Reactagraph = React.createClass({
   getInitialState: function() {
-    return {value: 'Hello!'};
+    return {value: ''};
   },
   handleChange: function(event) {
     this.setState({value: event.target.value});
@@ -20014,20 +20047,24 @@ var Input = React.createClass({
   render: function() {
     var value = this.state.value;
     return (
-      React.createElement("input", {type: "text", value: value, onChange: this.handleChange})
+      React.createElement("div", null,
+        React.createElement("input", {type: "text", value: value, onChange: this.handleChange}),
+        React.createElement(Paragraph, {input: value})
+      )
     );
   }
 });
 
-module.exports = Input;
+module.exports = Reactagraph;
 
-},{"react/addons":2}],164:[function(require,module,exports){
+},{"./Paragraph.js":164,"react/addons":2}],166:[function(require,module,exports){
 var React = require('react/addons');
-var Input = require('./Input');
+var Reactagraph = require('./Reactagraph');
 
 React.render(
-  React.createElement(Input),
+  React.createElement(Reactagraph),
   document.getElementById('app')
 );
 
-},{"./Input":163,"react/addons":2}]},{},[163,164]);
+
+},{"./Reactagraph":165,"react/addons":2}]},{},[163,164,165,166]);

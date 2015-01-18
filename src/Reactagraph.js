@@ -1,7 +1,22 @@
 var React = require('react/addons');
-var Input = require('./Input');
+var Paragraph = require('./Paragraph.js');
 
-React.render(
-  React.createElement(Input),
-  document.getElementById('app')
-);
+var Reactagraph = React.createClass({
+  getInitialState: function() {
+    return {value: ''};
+  },
+  handleChange: function(event) {
+    this.setState({value: event.target.value});
+  },
+  render: function() {
+    var value = this.state.value;
+    return (
+      React.createElement("div", null,
+        React.createElement("input", {type: "text", value: value, onChange: this.handleChange}),
+        React.createElement(Paragraph, {input: value})
+      )
+    );
+  }
+});
+
+module.exports = Reactagraph;
