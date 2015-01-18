@@ -16,8 +16,15 @@ describe('Input', function() {
   });
 
   it("should let you enter a word", function() {
-    var span = TestUtils.findRenderedDOMComponentWithTag(input, 'span');
-    expect(span.getDOMNode().textContent).to.include('Enter text here:');
+    var inputNode = TestUtils.findRenderedDOMComponentWithTag(input, 'input').getDOMNode();
+    TestUtils.Simulate.change(inputNode, {target: {value: "Hello world"}});
+    expect(inputNode.value).to.include('Hello world');
+  });
+
+  it("allows special characters to be entered", function() {
+    var inputNode = TestUtils.findRenderedDOMComponentWithTag(input, 'input').getDOMNode();
+    TestUtils.Simulate.change(inputNode, {target: {value: "( - _ ‘ [ ] { } “ £ $ & % ! : ; \\ / )"}});
+    expect(inputNode.value).to.equal("( - _ ‘ [ ] { } “ £ $ & % ! : ; \\ / )");
   });
 
   afterEach(function(done) {
