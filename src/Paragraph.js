@@ -1,19 +1,17 @@
 var React = require('react/addons');
-var CommaCount = require('./CommaCount');
-var FullStopCount = require('./FullStopCount');
+var Counter = require('./Counter');
 
 var Paragraph = React.createClass({
   count: function(str, input) {
     return input.split(str).length - 1;
   },
   render: function() {
-    debugger;
-    var commaCount = this.count(',', this.props.input);
-    var fullStopCount = this.count('.', this.props.input);
+    var commaCounter = this.count(',', this.props.input);
+    var fullStopCounter = this.count('.', this.props.input);
     return (
       React.createElement("div", null,
-        React.createElement(CommaCount, {count: commaCount}),
-        React.createElement(FullStopCount, {count: fullStopCount})
+        React.createElement(Counter, {className: "commas", label: "Commas", count: commaCounter}),
+        React.createElement(Counter, {className: "full-stops", label: "Full Stops", count: fullStopCounter})
       )
     );
   }

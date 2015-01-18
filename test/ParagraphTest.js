@@ -4,8 +4,7 @@ var TestUtils = React.addons.TestUtils;
 require('./testdom')('<html><body></body></html>');
 
 var Paragraph = require('../src/Paragraph.js');
-var FullStopCount = require('../src/FullStopCount.js');
-var CommaCount = require('../src/CommaCount.js');
+var Counter = require('../src/Counter.js');
 
 describe('Paragraph', function() {
 
@@ -13,16 +12,22 @@ describe('Paragraph', function() {
     var paragraph = TestUtils.renderIntoDocument(
       React.createElement(Paragraph, {input: "Hi, hello there, greetings"})
     );
-    var countNode = TestUtils.findRenderedComponentWithType(paragraph, CommaCount).getDOMNode();
+    debugger;
+    var countNode = TestUtils.findRenderedDOMComponentWithClass(paragraph, "commas").getDOMNode();
     expect(countNode.textContent).to.include("Commas: 2");
   });
 
   it("should count full stops", function() {
+    var myInput = ["His palms are sweaty.",
+      "Knees weak, arms spaghetti.",
+      "There's vomit on his spaghetti already.",
+      "Mom's spaghetti."
+    ]
     var paragraph = TestUtils.renderIntoDocument(
-      React.createElement(Paragraph, {input: "Hi. Take a seat. Who bitch this is."})
+      React.createElement(Paragraph, {input: myInput.join()})
     );
-    var countNode = TestUtils.findRenderedComponentWithType(paragraph, FullStopCount).getDOMNode();
-    expect(countNode.textContent).to.include("Full Stops: 3");
+    var countNode = TestUtils.findRenderedDOMComponentWithClass(paragraph, "full-stops").getDOMNode();
+    expect(countNode.textContent).to.include("Full Stops: 4");
   });
 
   afterEach(function(done) {

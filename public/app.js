@@ -20004,16 +20004,15 @@ module.exports = warning;
 },{"./emptyFunction":123,"_process":1}],163:[function(require,module,exports){
 var React = require('react/addons');
 
-var CommaCount = React.createClass({
+var Counter = React.createClass({
   render: function() {
     return (
-      React.createElement("p", null, "Commas: " + this.props.count)
+      React.createElement("p", {className: this.props.className}, this.props.label + ": " + this.props.count)
     );
   }
 });
 
-module.exports = CommaCount;
-
+module.exports = Counter;
 
 },{"react/addons":2}],164:[function(require,module,exports){
 var React = require('react/addons');
@@ -20031,21 +20030,19 @@ module.exports = FullStopCount;
 
 },{"react/addons":2}],165:[function(require,module,exports){
 var React = require('react/addons');
-var CommaCount = require('./CommaCount');
-var FullStopCount = require('./FullStopCount');
+var Counter = require('./Counter');
 
 var Paragraph = React.createClass({
   count: function(str, input) {
     return input.split(str).length - 1;
   },
   render: function() {
-    debugger;
-    var commaCount = this.count(',', this.props.input);
-    var fullStopCount = this.count('.', this.props.input);
+    var commaCounter = this.count(',', this.props.input);
+    var fullStopCounter = this.count('.', this.props.input);
     return (
       React.createElement("div", null,
-        React.createElement(CommaCount, {count: commaCount}),
-        React.createElement(FullStopCount, {count: fullStopCount})
+        React.createElement(Counter, {className: "commas", label: "Commas", count: commaCounter}),
+        React.createElement(Counter, {className: "full-stops", label: "Full Stops", count: fullStopCounter})
       )
     );
   }
@@ -20053,7 +20050,7 @@ var Paragraph = React.createClass({
 
 module.exports = Paragraph;
 
-},{"./CommaCount":163,"./FullStopCount":164,"react/addons":2}],166:[function(require,module,exports){
+},{"./Counter":163,"react/addons":2}],166:[function(require,module,exports){
 var React = require('react/addons');
 var Paragraph = require('./Paragraph.js');
 
