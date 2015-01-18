@@ -21,7 +21,7 @@ describe('Paragraph', function() {
       React.createElement(Paragraph, {input: "Hi, hello there, greetings "})
     );
     var countNode = TestUtils.findRenderedDOMComponentWithClass(paragraph, "words").getDOMNode();
-    expect(countNode.textContent).to.include("Words: 0");
+    expect(countNode.textContent).to.include("Words: 4");
   });
 
   it("should count full stops", function() {

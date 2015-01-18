@@ -20038,20 +20038,20 @@ var Paragraph = React.createClass({
     return input.split(str).length - 1;
   },
   purgeSpecialCharacters: function(input) {
-    return input.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+    return input.replace(/[&\/\\#,+()$~%.'":*?<>{}!]/g, '');
   },
   render: function() {
-    var input = this.props.input;
-    var commaCounter = this.count(',', input);
-    var fullStopCounter = this.count('.', input);
-    var wordsCounter = this.count(',', input);
-    var wordsList = this.purgeSpecialCharacters(input).split(' ');
+    var input = this.props.input
+      , commaCounter = this.count(',', input)
+      , fullStopCounter = this.count('.', input)
+      , wordsCounter = this.count(' ', input)
+      , wordsList = this.purgeSpecialCharacters(input).split(' ');
     return (
       React.createElement("div", null,
         React.createElement(TableOfWords, {words: wordsList}),
         React.createElement(Counter, {className: "commas", label: "Commas", count: commaCounter}),
         React.createElement(Counter, {className: "full-stops", label: "Full Stops", count: fullStopCounter}),
-        React.createElement(Counter, {className: "words", label: "Words", count: fullStopCounter})
+        React.createElement(Counter, {className: "words", label: "Words", count: wordsCounter})
       )
     );
   }
@@ -20073,7 +20073,7 @@ var Reactagraph = React.createClass({
   render: function() {
     var value = this.state.value;
     return (
-      React.createElement("div", null,
+      React.createElement("form", {className: "sky-form"},
         React.createElement("input", {type: "text", value: value, onChange: this.handleChange}),
         React.createElement(Paragraph, {input: value})
       )
@@ -20086,22 +20086,44 @@ module.exports = Reactagraph;
 },{"./Paragraph.js":165,"react/addons":2}],167:[function(require,module,exports){
 var React = require('react/addons');
 
-var Counter = React.createClass({
+var TableOfWords = React.createClass({
   render: function() {
-    var wordNodes = this.props.words.map(function(word) {
-      return (
-        React.createElement("li", null, word)
-      );
+    var words = this.props.words;
+    var table = {};
+    for(var i=0; i<words.length; i++) {
+      var letter = words[i][0];
+      if(table[letter] !== undefined && table[letter] instanceof Array) {
+        table[letter].push(words[i]);
+      } else {
+        table[letter] = [words[i]];
+      }
+    }
+
+    var tableNode = Object.keys(table).map(function(key) {
+      if(key !== "undefined") {
+        var listOfWords = table[key];
+        var wordNodes = listOfWords.map(function(word) {
+          return (
+            React.createElement("li", null, word)
+          );
+        });
+        return (
+          React.createElement("div", {className: "list-of-words"}, null,
+            React.createElement("p", {className: "text--instructions"}, key.toUpperCase()),
+            React.createElement("ul", {className: "list list--grey"}, wordNodes)
+          )
+        );
+      }
     });
     return (
-      React.createElement("ul", null,
-        wordNodes
+      React.createElement("div", {className: "table-of-words"}, null,
+        tableNode
       )
     );
   }
 });
 
-module.exports = Counter;
+module.exports = TableOfWords;
 
 },{"react/addons":2}],168:[function(require,module,exports){
 var React = require('react/addons');

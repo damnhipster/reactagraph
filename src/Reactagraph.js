@@ -11,7 +11,7 @@ var Reactagraph = React.createClass({
   render: function() {
     var value = this.state.value;
     return (
-      React.createElement("div", null,
+      React.createElement("form", {className: "sky-form"},
         React.createElement("input", {type: "text", value: value, onChange: this.handleChange}),
         React.createElement(Paragraph, {input: value})
       )
