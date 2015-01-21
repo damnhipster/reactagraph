@@ -7,7 +7,7 @@ var Paragraph = React.createClass({
     return input.split(str).length - 1;
   },
   purgeSpecialCharacters: function(input) {
-    return input.replace(/((?![a-zA-Z\.,]).)/g, '');
+    return input.replace(/((?![a-zA-Z\.,\s]).)/g, '');
   },
   render: function() {
     var input = this.props.input
