@@ -6,7 +6,7 @@ var TableOfWords = React.createClass({
     var table = {};
     for(var i=0; i<words.length; i++) {
       var letter = words[i][0];
-      if(table[letter] !== undefined && table[letter] instanceof Array) {
+      if(table[letter] && table[letter] instanceof Array) {
         table[letter].push(words[i]);
       } else {
         table[letter] = [words[i]];
